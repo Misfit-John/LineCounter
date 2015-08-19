@@ -5,15 +5,15 @@
 
 class LineCounterForCpp:public LineCounterBase{
 public:
-	virtual ~LineCounterForCpp ();
+	LineCounterForCpp(const string& filename);
 
 private:
 	virtual bool isEmptyLine(const string& line);
 	virtual bool isCommentLine(const string& line);
 private:
 	//line seperator will make "//"comment affect next line
-	bool mIsBlockComment;
-	bool mIsLineComment;
+	bool mIsStillBlockComment;
+	bool mIsStillLineComment;
 };
 
 #endif /* end of include guard: LINECOUNTERFORCPP_H */

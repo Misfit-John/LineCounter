@@ -25,8 +25,8 @@ public:
 
 protected:
 	LineCounterBase ();
-	virtual bool isEmptyLine(const string& line);
-	virtual bool isCommentLine(const string& line);
+	virtual bool isEmptyLine(const string& line) = 0;
+	virtual bool isCommentLine(const string& line) = 0;
 
 	void addLineNum(LineType lineType);
 

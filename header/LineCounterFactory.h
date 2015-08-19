@@ -5,6 +5,8 @@
 #include <string>
 using namespace std;
 
+class LineCounterBase;
+
 enum FileType
 {
 	eFileTypeUnknow = 0,		//put this type at the begining
@@ -15,31 +17,21 @@ enum FileType
 	eFileTypeMixCppObjC,		//.mm
 };
 
-class FileTypeCheck {
+class LineCounterFactory {
 public:
-	static FileTypeCheck* getInstance()
-	{
-		FileTypeCheck* instance = NULL;
-		if (NULL == instance)
-		{
-			instance = new FileTypeCheck();
-			instance->init();
-		}
-		return instance;
-	}
-	virtual ~FileTypeCheck ();
+	static LineCounterFactory* getInstance();
+	virtual ~LineCounterFactory ();
 
-	FileType checkFileType(const string& fileName);
-
+	LineCounterBase* getLineCounter(const string& fileName);	
 private:
-	FileTypeCheck ();
-	FileTypeCheck operator =(const FileTypeCheck& rhl);	
+	LineCounterFactory ();
+	FileType checkFileType(const string& fileName);
 
 	void init();
 	string getSuffix(const string& input);
 
 private:
-	map<string,int> mSuffixMap;	
+	map<string,FileType> mSuffixMap;	
 };
 
 #endif /* end of include guard: FILETYPECHECK_H */

@@ -120,6 +120,11 @@ void LineNumberCollector::scanFile(const string& dir)
 
 void* ThreadCalculateAFile(void *fileName)
 {
+	if (NULL == fileName)
+	{
+		ERROR("null file name");
+		return NULL;
+	}
 	char* input = (char*)fileName;
 	LOG("file name is :%s",input);
 	LineNumberCollector::getInstance()->changeCalculatingFileNum(-1);
