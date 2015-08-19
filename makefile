@@ -12,6 +12,7 @@ AR=ar
 PLATFORM_FLAG=-D_UNIX_ $(DEBUG_FLAG) 
 INCLUDE_FLAGS=-I./header 
 CPP_FLAG=--std=c++0x
+LINK_FLAG=-lpthread
 TARGET=counter
 
 CFLAGS=$(PLATFORM_FLAG) $(INCLUDE_FLAGS)
@@ -23,7 +24,7 @@ HEADERS=$(wildcard ./header/*.h)
 
 $(TARGET):$(OBJS) 
 	@echo "============ make target ============="
-	$(CXX) $(OBJS) -o $(TARGET)  
+	$(CXX) $(OBJS) $(LINK_FLAG) -o $(TARGET)  
 
 release:clean makefile
 	@echo "============ release ================="

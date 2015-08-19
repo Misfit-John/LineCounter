@@ -54,11 +54,11 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +6 main.cpp
-badd +0 ~/LineCounter/header/LineCounterBase.h
-badd +0 ~/LineCounter/header/LineCounterForCpp.h
+badd +10 main.cpp
+badd +1 ~/LineCounter/Core/LineNumberCollector.cpp
+badd +0 ~/LineCounter/header/LineNumberCollector.h
 args main.cpp
-edit ~/LineCounter/header/LineCounterBase.h
+edit ~/LineCounter/header/LineNumberCollector.h
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -166,15 +166,15 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 25 - ((24 * winheight(0) + 18) / 37)
+let s:l = 19 - ((18 * winheight(0) + 18) / 37)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-25
-normal! 0
+19
+normal! 048l
 wincmd w
 argglobal
-edit ~/LineCounter/header/LineCounterForCpp.h
+edit ~/LineCounter/header/LineNumberCollector.h
 setlocal noautoindent
 setlocal nobinary
 setlocal bufhidden=
@@ -270,12 +270,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 15 - ((14 * winheight(0) + 18) / 37)
+let s:l = 19 - ((18 * winheight(0) + 18) / 37)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-15
-normal! 04l
+19
+normal! 048l
 wincmd w
 2wincmd w
 exe 'vert 1resize ' . ((&columns * 79 + 79) / 158)

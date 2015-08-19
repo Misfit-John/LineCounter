@@ -1,13 +1,16 @@
 #ifndef LINECOUNTERBASE_H
 #define LINECOUNTERBASE_H
 
+#include <string>
+using namespace std;
+
 enum LineType
 {
 	eLineTypeUnknow = 0, //unlikely
 	eLineTypeEmptyLine ,
 	eLineTypeCommentLine,
 	eLineTypeUsefuleLine,
-}
+};
 
 class LineCounterBase {
 public:
