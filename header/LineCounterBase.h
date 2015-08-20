@@ -10,6 +10,8 @@ enum LineType
 	eLineTypeEmptyLine ,
 	eLineTypeCommentLine,
 	eLineTypeUsefuleLine,
+
+	eLineTypeSumLine,
 };
 
 class LineCounterBase {
@@ -27,9 +29,10 @@ protected:
 	LineCounterBase ();
 	virtual bool isEmptyLine(const string& line) = 0;
 	virtual bool isCommentLine(const string& line) = 0;
+	virtual bool isCodeLine(const string& line) = 0;
 
 	void addLineNum(LineType lineType);
-
+	bool isEmptyChar(const char input);
 private:
 	string mFileName;
 	unsigned int mSumLineNum;

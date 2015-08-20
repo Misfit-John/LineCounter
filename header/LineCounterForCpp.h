@@ -10,10 +10,14 @@ public:
 private:
 	virtual bool isEmptyLine(const string& line);
 	virtual bool isCommentLine(const string& line);
+	virtual bool isCodeLine(const string& line);
+	void setEscapeBackSlant(const char input,bool &flag);
 private:
 	//line seperator will make "//"comment affect next line
-	bool mIsStillBlockComment;
-	bool mIsStillLineComment;
+	bool mIsStillBlockCommentForCode;
+	bool mIsStillBlockCommentForComment;
+	bool mIsStillLineCommentForCode;
+	bool mIsStillLineCommentForComment;
 };
 
 #endif /* end of include guard: LINECOUNTERFORCPP_H */

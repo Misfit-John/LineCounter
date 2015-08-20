@@ -1,6 +1,7 @@
 #include "LineNumberCollector.h"
 #include <dirent.h>
 #include "Log.h"
+#include "LineCounterFactory.h"
 
 LineNumberCollector::~LineNumberCollector()
 {
@@ -44,6 +45,16 @@ void LineNumberCollector::calculateLineNum(const string& projcetDir)
 		pthread_t calculateThread;
 		pthread_create(&calculateThread,NULL, ThreadCalculateAFile,(void*) mProjectFileList[i].c_str());
 	}
+	while(mCalculatingFileNum !=0 ){}
+	printLineNum();
+}
+
+void LineNumberCollector::printLineNum()
+{
+	printf("Sum line num:		%d\n",mSumLineNum);
+	printf("Empty line num:		%d\n",mEmptyLineNum);
+	printf("Comment line nue:	%d\n",mCommentLineNum);
+	printf("Code line num:		%d\n",mUsefulLineNum);
 }
 
 void LineNumberCollector::addLineNum(LineType lineType,unsigned int number)
@@ -66,16 +77,15 @@ void LineNumberCollector::addLineNum(LineType lineType,unsigned int number)
 			mUsefulLineNum += number;
 			pthread_mutex_unlock(&mUsefuleLineNumMutex);
 			break;
+		case eLineTypeSumLine:
+			pthread_mutex_lock(&mSumNumMutex);
+			mSumLineNum += number;
+			pthread_mutex_unlock(&mSumNumMutex);
+			break;
 		default:
 			addToSumLine = false;
 			ERROR("unknow line type");
 			break;
-	}
-	if (true == addToSumLine)
-	{
-		pthread_mutex_lock(&mSumNumMutex);
-		mSumLineNum += number;
-		pthread_mutex_unlock(&mSumNumMutex);
 	}
 }
 
@@ -127,6 +137,15 @@ void* ThreadCalculateAFile(void *fileName)
 	}
 	char* input = (char*)fileName;
 	LOG("file name is :%s",input);
+	LineCounterBase *counter = LineCounterFactory::getInstance()->getLineCounter(input);
+	if (NULL == counter)
+	{
+		ERROR("can not find line counter for file:%s",input);
+	}
+	else
+	{
+		counter->countLine();
+	}
 	LineNumberCollector::getInstance()->changeCalculatingFileNum(-1);
 	pthread_exit(NULL); 
 }

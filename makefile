@@ -18,7 +18,7 @@ TARGET=counter
 CFLAGS=$(PLATFORM_FLAG) $(INCLUDE_FLAGS)
 CPPFLAGS=$(PLATFORM_FLAG) $(INCLUDE_FLAGS) $(CPP_FLAG)
 
-SOURCES=$(wildcard ./*/*.c ./*/*.cpp ./*.cpp)
+SOURCES=$(wildcard ./Core/*.cpp ./*.cpp)
 OBJS=$(patsubst %.c, %.o,$(patsubst %.cpp,%.o,$(SOURCES)))
 HEADERS=$(wildcard ./header/*.h)
 

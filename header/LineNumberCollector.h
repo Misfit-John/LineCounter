@@ -19,6 +19,8 @@ public:
 	//number can be postive or negative
 	void changeCalculatingFileNum(int number);
 
+	void printLineNum();
+
 private:
 	LineNumberCollector ();
 	void scanFile(const string& dir);

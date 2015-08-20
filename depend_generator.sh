@@ -10,8 +10,13 @@ gen_depend()
 	do
 		if [ -d $file ]
 		then
-			echo "in $file"
-			gen_depend $file
+			if [[ "$file" == *"test" ]]
+			then
+				echo "in test dir,do nothing"
+			else
+				echo "in $file"
+				gen_depend $file
+			fi
 		elif [ -f $file ]
 		then
 			if [ "${file##*.}" = "cpp" -o "${file##*.}" = "c" ]
