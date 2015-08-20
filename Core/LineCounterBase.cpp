@@ -24,17 +24,19 @@ void LineCounterBase::countLine()
 	while(getline(inFile,lineString))
 	{
 		printf("line:%s\n",lineString.c_str());
-		if (true == isCommentLine(lineString))
+		bool isEmpty = false ,isCode = false,isComment = false;
+		checkAline(lineString,isEmpty,isCode,isComment);
+		if (true == isComment)
 		{
 			LOG("is comment");
 			addLineNum(eLineTypeCommentLine);
 		}
-		if(true == isEmptyLine(lineString))
+		if(true == isEmpty)
 		{
 			LOG("is empty");
 			addLineNum(eLineTypeEmptyLine);	
 		}
-		if(true == isCodeLine(lineString))
+		if(true == isCode)
 		{
 			LOG("is code");
 			addLineNum(eLineTypeUsefuleLine);	

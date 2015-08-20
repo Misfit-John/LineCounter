@@ -27,10 +27,7 @@ public:
 
 protected:
 	LineCounterBase ();
-	virtual bool isEmptyLine(const string& line) = 0;
-	virtual bool isCommentLine(const string& line) = 0;
-	virtual bool isCodeLine(const string& line) = 0;
-
+	virtual void checkAline(const string& line, bool &isEmpty,bool &isCode, bool &isComment) = 0;
 	void addLineNum(LineType lineType);
 	bool isEmptyChar(const char input);
 private:

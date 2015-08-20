@@ -3,21 +3,27 @@
 
 #include "LineCounterBase.h"
 
+enum CppCodeState
+{
+	eCppBegin = 0,
+	eCppCode = 1,
+	eCppString,
+	eCppCommentLine,
+	eCppCommentBlock,
+	eCppChar,
+};
+
+
 class LineCounterForCpp:public LineCounterBase{
 public:
 	LineCounterForCpp(const string& filename);
 
 private:
-	virtual bool isEmptyLine(const string& line);
-	virtual bool isCommentLine(const string& line);
-	virtual bool isCodeLine(const string& line);
+	void checkAline(const string& line, bool &isEmpty,bool &isCode, bool &isComment);
 	void setEscapeBackSlant(const char input,bool &flag);
 private:
 	//line seperator will make "//"comment affect next line
-	bool mIsStillBlockCommentForCode;
-	bool mIsStillBlockCommentForComment;
-	bool mIsStillLineCommentForCode;
-	bool mIsStillLineCommentForComment;
+	int mState;
 };
 
 #endif /* end of include guard: LINECOUNTERFORCPP_H */
